@@ -1,0 +1,16 @@
+name: ShardsEconomy
+version: '${project.version}'
+main: mino.dx.curseletcraft.ShardsEconomy
+api-version: '1.21'
+prefix: ShardsEconomy
+load: STARTUP
+authors: [ MinoMC_YTB ]
+description: ShardsEconomy, by MinoMC_YTB
+website: https://www.youtube.com/channel/UCuiahZeaj3jpkkX93aGmLMw
+dependencies:
+  server:
+    PlaceholderAPI:
+      load: BEFORE
+      required: false
+      join-classpath: true
+provides: [ShardsAPI]
