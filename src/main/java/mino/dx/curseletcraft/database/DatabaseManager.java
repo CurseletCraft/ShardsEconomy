@@ -24,12 +24,12 @@ public class DatabaseManager {
             } else {
                 databaseType = DatabaseType.SQLITE;
                 File dataFolder = plugin.getDataFolder();
-                if (!dataFolder.exists()) {
-                    if (!dataFolder.mkdirs()) {
-                        plugin.getLogger().severe("Không thể tạo thư mục plugin: " + dataFolder.getAbsolutePath());
-                        throw new RuntimeException("Thư mục plugin không thể được tạo.");
-                    }
-                }
+//                if (!dataFolder.exists()) {
+//                    if (!dataFolder.mkdirs()) {
+//                        plugin.getLogger().severe("Không thể tạo thư mục plugin: " + dataFolder.getAbsolutePath());
+//                        throw new RuntimeException("Thư mục plugin không thể được tạo.");
+//                    }
+//                }
 
                 File dbFile = new File(dataFolder, "shards.db");
                 shardManager = new ShardsManager(dbFile.getPath());
