@@ -1,12 +1,12 @@
 package mino.dx.curseletcraft;
 
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
-import mino.dx.curseletcraft.api.IShards;
+import mino.dx.curseletcraft.api.interfaces.IShards;
 import mino.dx.curseletcraft.commands.ShardsCmd;
 import mino.dx.curseletcraft.config.Config;
 import mino.dx.curseletcraft.database.DatabaseManager;
-import mino.dx.curseletcraft.database.ShardsManager;
-import mino.dx.curseletcraft.database.ShardsManagerMySQL;
+import mino.dx.curseletcraft.database.sync.ShardsManager;
+import mino.dx.curseletcraft.database.sync.ShardsManagerMySQL;
 import mino.dx.curseletcraft.hooks.RegisterPlaceholder;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;

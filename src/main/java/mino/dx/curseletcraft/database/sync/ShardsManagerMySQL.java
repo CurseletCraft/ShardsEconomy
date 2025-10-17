@@ -1,13 +1,13 @@
-package mino.dx.curseletcraft.database;
+package mino.dx.curseletcraft.database.sync;
 
 import mino.dx.curseletcraft.ShardsEconomy;
-import mino.dx.curseletcraft.api.IShards;
+import mino.dx.curseletcraft.api.interfaces.IShards;
 import mino.dx.curseletcraft.utils.PluginUtils;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.*;
 import java.util.UUID;
 
-@SuppressWarnings("all")
 public class ShardsManagerMySQL implements IShards {
 
     private final Connection connection;
@@ -87,6 +87,17 @@ public class ShardsManagerMySQL implements IShards {
         } catch (SQLException e) {
             PluginUtils.err(e.getMessage());
         }
+    }
+
+    public static Connection getConnection(JavaPlugin plugin) throws SQLException {
+        String host = plugin.getConfig().getString("database.host");
+        String port = plugin.getConfig().getString("database.port");
+        String database = plugin.getConfig().getString("database.name");
+        String user = plugin.getConfig().getString("database.user");
+        String password = plugin.getConfig().getString("database.password");
+
+        String url = "jdbc:mysql://" + host + ":" + port + "/" + database + "?useSSL=false&autoReconnect=true";
+        return DriverManager.getConnection(url, user, password);
     }
 
 }

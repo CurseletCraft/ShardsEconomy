@@ -9,7 +9,7 @@ package mino.dx.curseletcraft.api;
  * <p>
  * 2. Trong class main (extends JavaPlugin), lấy IShards khi plugin được enable:
  * <pre><code>
- * import mino.dx.curseletcraft.api.IShards;
+ * import mino.dx.curseletcraft.api.interfaces.IShards;
  * import mino.dx.curseletcraft.api.ShardsAPI;
  * import org.bukkit.plugin.java.JavaPlugin;
  *
@@ -34,7 +34,7 @@ package mino.dx.curseletcraft.api;
  * </code></pre>
  * 3. Trong class khác, bạn có thể lấy shardsManager từ plugin main và gọi các phương thức:
  * <pre><code>
- * import mino.dx.curseletcraft.api.IShards;
+ * import mino.dx.curseletcraft.api.interfaces.IShards;
  * import java.util.UUID;
  *
  * public class TestClass {

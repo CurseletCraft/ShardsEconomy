@@ -1,18 +1,25 @@
-package mino.dx.curseletcraft.database;
+package mino.dx.curseletcraft.database.sync;
 
-import mino.dx.curseletcraft.api.IShards;
+import mino.dx.curseletcraft.ShardsEconomy;
+import mino.dx.curseletcraft.api.interfaces.IShards;
 import mino.dx.curseletcraft.utils.PluginUtils;
+import org.bukkit.Bukkit;
 
 import java.sql.*;
 import java.util.UUID;
 
 // SQLite
-@SuppressWarnings("all")
 public class ShardsManager implements IShards {
-    private final Connection connection;
 
-    public ShardsManager(String dbPath) throws SQLException {
-        connection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
+    private final ShardsEconomy plugin;
+
+    private final Connection connection;
+    private final boolean isAsync;
+
+    public ShardsManager(ShardsEconomy plugin, String dbPath) throws SQLException {
+        this.plugin = plugin;
+        this.connection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
+        this.isAsync = plugin.getConfig().getBoolean("database.enable-async", true);
         createTable();
     }
 
@@ -41,16 +48,24 @@ public class ShardsManager implements IShards {
 
     @Override
     public void setShards(UUID uuid, int amount) {
-        try (PreparedStatement ps = connection.prepareStatement("""
-            INSERT INTO shards (uuid, amount)
-            VALUES (?, ?)
-            ON CONFLICT(uuid) DO UPDATE SET amount = excluded.amount
-        """)) {
-            ps.setString(1, uuid.toString());
-            ps.setInt(2, Math.max(0, amount));
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            PluginUtils.err(e.getMessage());
+        Runnable runnable = () -> {
+            try (PreparedStatement ps = connection.prepareStatement("""
+                INSERT INTO shards (uuid, amount)
+                VALUES (?, ?)
+                ON CONFLICT(uuid) DO UPDATE SET amount = excluded.amount
+            """)) {
+                ps.setString(1, uuid.toString());
+                ps.setInt(2, Math.max(0, amount));
+                ps.executeUpdate();
+            } catch (SQLException e) {
+                PluginUtils.err(e.getMessage());
+            }
+        };
+
+        if (isAsync) {
+            Bukkit.getScheduler().runTaskAsynchronously(plugin, runnable);
+        } else {
+            runnable.run();
         }
     }
 

@@ -2,7 +2,7 @@ package mino.dx.curseletcraft.hooks;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import mino.dx.curseletcraft.ShardsEconomy;
-import mino.dx.curseletcraft.api.IShards;
+import mino.dx.curseletcraft.api.interfaces.IShards;
 import mino.dx.curseletcraft.utils.PluginUtils;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;

@@ -1,6 +1,7 @@
-package mino.dx.curseletcraft.api;
+package mino.dx.curseletcraft.api.interfaces;
 
-import mino.dx.curseletcraft.database.*;
+import mino.dx.curseletcraft.database.sync.ShardsManager;
+import mino.dx.curseletcraft.database.sync.ShardsManagerMySQL;
 
 import java.util.UUID;
 

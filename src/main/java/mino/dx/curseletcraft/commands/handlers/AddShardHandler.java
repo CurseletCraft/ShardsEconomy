@@ -1,7 +1,8 @@
 package mino.dx.curseletcraft.commands.handlers;
 
 import mino.dx.curseletcraft.ShardsEconomy;
-import mino.dx.curseletcraft.api.IShards;
+import mino.dx.curseletcraft.api.events.ShardsChangedEvent;
+import mino.dx.curseletcraft.api.interfaces.IShards;
 import mino.dx.curseletcraft.utils.PluginUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -30,6 +31,11 @@ public class AddShardHandler {
 
         IShards manager = plugin.getShardsManager();
         manager.addShards(target.getUniqueId(), amount);
+
+        // call event
+        int balance = manager.getShards(target.getUniqueId());
+        ShardsChangedEvent event = new ShardsChangedEvent(target, balance, balance + amount);
+        event.callEvent();
 
         sender.sendMessage(PluginUtils.formatMessage("&aĐã thêm &f" + amount + " &dShard &acho &f" + target.getName()));
 

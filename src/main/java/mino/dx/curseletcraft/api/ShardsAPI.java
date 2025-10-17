@@ -1,6 +1,7 @@
 package mino.dx.curseletcraft.api;
 
 import mino.dx.curseletcraft.ShardsEconomy;
+import mino.dx.curseletcraft.api.interfaces.IShards;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.ApiStatus;
